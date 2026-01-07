@@ -8,10 +8,10 @@ public class Order {
 
     public Order() { }
 
-    public Order(Double discount, Integer code, Double basic) {
-        this.discount = discount;
+    public Order(Integer code, Double basic, Double discount) {
         this.code = code;
         this.basic = basic;
+        this.discount = discount;
     }
 
     public Double getBasic() {

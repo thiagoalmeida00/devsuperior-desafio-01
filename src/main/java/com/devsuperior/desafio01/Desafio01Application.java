@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 @SpringBootApplication
 public class Desafio01Application implements CommandLineRunner {
+
 	@Autowired
 	private OrderService orderService;
 
@@ -21,17 +22,20 @@ public class Desafio01Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
 		Locale.setDefault(Locale.US);
-		Scanner sc = new Scanner(System.in);
 
-		Order order = new Order();
-		order.setCode(sc.nextInt());
-		order.setBasic(sc.nextDouble());
-		order.setDiscount(sc.nextDouble());
+		Order order1 = new Order(1034, 150.0, 20.0);
+		System.out.println("Pedido código: " + order1.getCode());
+		System.out.printf("Valor total: R$ %.2f%n", orderService.total(order1));
 
-		System.out.println(orderService.getCodeNumber(order));
-		System.out.println(orderService.getFinalOrder(order));
+		Order order2 = new Order(2282, 800.0, 10.0);
+		System.out.println("Pedido código: " + order2.getCode());
+		System.out.printf("Valor total: R$ %.2f%n", orderService.total(order2));
 
-		sc.close();
+		Order order3 = new Order(1309, 95.90, 0.0);
+		System.out.println("Pedido código: " + order3.getCode());
+		System.out.printf("Valor total: R$ %.2f%n", orderService.total(order3));
+
 	}
 }

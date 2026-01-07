@@ -4,6 +4,9 @@ import com.devsuperior.desafio01.entities.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Service
 public class OrderService {
 
@@ -12,26 +15,12 @@ public class OrderService {
 
     public double total(Order order) {
         if (order != null) {
+            double shipValue = shippingService.shipment(order);
             double discountAmount = order.getBasic() * (order.getDiscount() / 100);
-            return order.getBasic() - discountAmount;
+            double subTotal = order.getBasic() - discountAmount;
+            return subTotal + shipValue;
         }
         return 0.0;
-    }
-
-    public String getCodeNumber(Order order) {
-        if (order != null) {
-            return "Pedido código " + order.getCode();
-        }
-        return null;
-    }
-
-    public String getFinalOrder(Order order) {
-        if (order != null) {
-            double shipValue = shippingService.shipment(order);
-            double totalValue = total(order) + shipValue;
-            return "Valor total: R$ " + String.format("%.2f", totalValue);
-        }
-        return null;
     }
 
 }
